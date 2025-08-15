@@ -1,147 +1,202 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Twoje Imię</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f8f8;
-            color: #333;
-        }
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #222, #444);
-            color: white;
-            animation: fadeIn 1.2s ease-in-out;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 3rem;
-        }
-        header p {
-            font-size: 1.2rem;
-            color: #ccc;
-        }
-        section {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
-            animation: fadeInUp 0.8s ease-in-out;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-        .gallery img {
-            width: 100%;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .gallery img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .about {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #222;
-            color: white;
-            font-size: 0.9rem;
-        }
-        a {
-            color: #ff6600;
-            text-decoration: none;
-        }
-        #lightbox {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-        @keyframes fadeInUp {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katashi - Gmod Modeler</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #222, #444);
+    color: white;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+.gallery-item {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    padding: 20px;
+}
+.modal-content {
+    max-width: 90%;
+    max-height: 80%;
+    position: relative;
+    text-align: center;
+}
+.modal img {
+    max-width: 100%;
+    max-height: 60vh;
+    border-radius: 6px;
+}
+.modal h2 {
+    margin: 15px 0 5px;
+}
+.modal p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+.modal a {
+    display: inline-block;
+    background: #ff6600;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+}
+.arrow.left {
+    left: -50px;
+}
+.arrow.right {
+    right: -50px;
+}
+@media (max-width: 768px) {
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>Twoje Imię</h1>
-        <p>Grafik | Ilustrator | Projektant</p>
-    </header>
+<header>
+    <h1>Moje Portfolio</h1>
+    <p>Projekty w stylu Steam Workshop</p>
+</header>
 
-    <section>
-        <h2>Moje prace</h2>
-        <div class="gallery">
-            <img src="img/praca1.jpg" alt="Praca 1">
-            <img src="img/praca2.jpg" alt="Praca 2">
-            <img src="img/praca3.jpg" alt="Praca 3">
-            <img src="img/praca4.jpg" alt="Praca 4">
-        </div>
-    </section>
-
-    <section class="about">
-        <h2>O mnie</h2>
-        <p>Cześć! Jestem grafikiem z pasją do tworzenia wyjątkowych projektów wizualnych. Specjalizuję się w ilustracjach, projektach reklamowych i brandingu. Moim celem jest łączenie estetyki z funkcjonalnością, aby tworzyć prace, które wyróżniają się i zapadają w pamięć.</p>
-    </section>
-
-    <section>
-        <h2>Kontakt</h2>
-        <p>Email: <a href="mailto:twojemail@example.com">twojemail@example.com</a></p>
-        <p>Instagram: <a href="https://instagram.com/twojprofil" target="_blank">@twojprofil</a></p>
-    </section>
-
-    <footer>
-        &copy; 2025 Twoje Imię | Portfolio
-    </footer>
-
-    <div id="lightbox">
-        <img src="" alt="Podgląd obrazu">
+<div class="gallery">
+    <div class="gallery-item" 
+         data-title="Projekt 1" 
+         data-description="Opis projektu 1" 
+         data-link="https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXX"
+         data-images="img/praca1_1.jpg,img/praca1_2.jpg,img/praca1_3.jpg">
+        <img src="img/praca1_1.jpg" alt="Projekt 1">
     </div>
+    <div class="gallery-item" 
+         data-title="Projekt 2" 
+         data-description="Opis projektu 2" 
+         data-link="https://steamcommunity.com/sharedfiles/filedetails/?id=YYYYY"
+         data-images="img/praca2_1.jpg,img/praca2_2.jpg">
+        <img src="img/praca2_1.jpg" alt="Projekt 2">
+    </div>
+</div>
 
-    <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-        document.querySelectorAll('.gallery img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightbox.style.display = 'flex';
-            });
-        });
-        lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg) {
-                lightbox.style.display = 'none';
-            }
-        });
-    </script>
+<!-- Modal -->
+<div class="modal" id="modal">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <div class="modal-content">
+        <span class="arrow left" id="prev">&#10094;</span>
+        <img id="modalImage" src="" alt="Podgląd">
+        <span class="arrow right" id="next">&#10095;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+        <a id="modalLink" href="#" target="_blank">Zobacz w Steam Workshop</a>
+    </div>
+</div>
+
+<script>
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modalImage');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalLink = document.getElementById('modalLink');
+const closeBtn = document.getElementById('closeBtn');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
+
+let currentImages = [];
+let currentIndex = 0;
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+        currentImages = item.dataset.images.split(',');
+        currentIndex = 0;
+        modalImage.src = currentImages[currentIndex];
+        modalTitle.textContent = item.dataset.title;
+        modalDesc.textContent = item.dataset.description;
+        modalLink.href = item.dataset.link;
+        modal.style.display = 'flex';
+    });
+});
+
+closeBtn.addEventListener('click', () => modal.style.display = 'none');
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    modalImage.src = currentImages[currentIndex];
+});
+nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % currentImages.length;
+    modalImage.src = currentImages[currentIndex];
+});
+</script>
 
 </body>
 </html>
